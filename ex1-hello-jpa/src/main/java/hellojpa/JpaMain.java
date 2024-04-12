@@ -8,7 +8,7 @@ import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.OrderStatus;
-import jpabook.jpashop.domain.Orders;
+import jpabook.jpashop.domain.Order;
 
 public class JpaMain {
 
@@ -26,20 +26,20 @@ public class JpaMain {
             Item item1 = new Item();
             item1.setName("i1");
             em.persist(item1);
-            Orders orders = new Orders();
-            orders.setMember(member);
-            orders.setStatus(OrderStatus.ORDER);
-            em.persist(orders);
+            Order order = new Order();
+            order.setMember(member);
+            order.setStatus(OrderStatus.ORDER);
+            em.persist(order);
             OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(orders);
+            orderItem.setOrder(order);
             orderItem.setItem(item1);
             orderItem.setCount(3);
             em.persist(orderItem);
 
             em.flush();
             em.clear();
-            Orders orders2 = em.find(orders.getClass(), orderItem.getId());
-            for (OrderItem orderItem2 : orders2.getOrderItemList()) {
+            Order order2 = em.find(order.getClass(), orderItem.getId());
+            for (OrderItem orderItem2 : order2.getOrderItemList()) {
                 System.out.println(orderItem2);
             }
 
